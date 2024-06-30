@@ -5,9 +5,11 @@
 #include <assert.h>
 #include <math.h>
 #include "threadPool.hpp"
+#include <spdlog/spdlog.h>
 
 int main()
 {
+    spdlog::info("stat test...");
     std::cout << MyC::get_xunhuan(100012312312, 9) << std::endl;
     assert(MyC::get_xunhuan(100012312312, 9) == 7);
     assert(add(1, 2) == 3);
