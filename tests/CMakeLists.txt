@@ -1,0 +1,5 @@
+enable_testing()
+add_executable(mytest test.cpp)
+include_directories(${CMAKE_SOURCE_DIR}/lib)
+target_link_libraries(mytest utility core spdlog)
+add_test(NAME mytest COMMAND mytest)
