@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29.0)
+cmake_minimum_required(VERSION 3.10...3.21)
 project(MyC VERSION 0.1.0 LANGUAGES CXX C) 
 
 set(CMAKE_CXX_STANDARD 11)
@@ -6,6 +6,9 @@ set(CMAKE_C_STANDARD 11)
 find_package(CURL REQUIRED)
 # libomp 15.0+ from brew is keg-only, so have to search in other locations.
 # See https://github.com/Homebrew/homebrew-core/issues/112107#issuecomment-1278042927.
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+message("当前平台是 macos")
 execute_process(COMMAND brew --prefix libomp
         OUTPUT_VARIABLE HOMEBREW_LIBOMP_PREFIX
         OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -19,6 +22,10 @@ set(OpenMP_C_INCLUDE ${HOMEBREW_LIBOMP_PREFIX}/include)
 set(OpenMP_CXX_INCLUDE ${HOMEBREW_LIBOMP_PREFIX}/include)
 set(OpenMP_omp_LIBRARY ${HOMEBREW_LIBOMP_PREFIX}/lib/libomp.dylib)
 find_package(OpenMP REQUIRED)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+message("当前平台是Linux")
+find_package(OpenMP REQUIRED)
+endif()
 set(ENV{SPDLOG_LEVEL} debug)
 set(THIRDPARTY "thirdparty")
 include_directories(${CMAKE_SOURCE_DIR}/include ${THIRDPARTY}/spdlog/include)
