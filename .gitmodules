@@ -7,3 +7,9 @@
 [submodule "thirdparty/oatpp"]
 	path = thirdparty/oatpp
 	url = git@github.com:oatpp/oatpp.git
+[submodule "thirdparty/oatpp-swagger"]
+	path = thirdparty/oatpp-swagger
+	url = git@github.com:oatpp/oatpp-swagger.git
+[submodule "thirdparty/oatpp-sqlite"]
+	path = thirdparty/oatpp-sqlite
+	url = git@github.com:oatpp/oatpp-sqlite.git
