@@ -1,5 +1,5 @@
-add_executable(myapp main.cpp app.cpp)
+add_executable(app main.cpp app.cpp)
 set(ENV{SPDLOG_LEVEL} debug)
 include_directories(${CMAKE_SOURCE_DIR}/lib ${OpenMP_CXX_INCLUDE})
 # set(CMAKE_CXX_FLAGS "-framework Cocoa")
-target_link_libraries(myapp utility core curl spdlog::spdlog)
+target_link_libraries(app utility core curl spdlog)

@@ -13,4 +13,4 @@ cd build
 cores=${nprpc}
 ninja -t clean && ninja -j "$cores" $1
 echo "开始运行。。。"
-./app/$1
+./$1/$1

@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 3.10...3.21)
 project(MyC VERSION 0.1.0 LANGUAGES CXX C) 
-
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
-
+file(GLOB CMAKE_FOLDERS ${CMAKE_SOURCE_DIR}/local/lib/cmake/*)
+foreach(CMAKE_F  ${CMAKE_FOLDERS})
+message(第三方库cmake： ${CMAKE_F})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_F} ${CMAKE_PREFIX_PATH})
+endforeach() 
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
+list(APPEND CMAKE_PREFIX_PATH "")
+set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/thirdparty/local CACHE PATH "安装路径" FORCE)
 # libomp 15.0+ from brew is keg-only, so have to search in other locations.
 # See https://github.com/Homebrew/homebrew-core/issues/112107#issuecomment-1278042927.
-
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 message("当前平台是 macos")
 execute_process(COMMAND brew --prefix libomp
@@ -26,7 +31,6 @@ find_package(CURL REQUIRED)
         elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 message("当前平台是Linux")
 find_package(OpenMP REQUIRED)
-
 endif()
 set(ENV{SPDLOG_LEVEL} debug)
 set(THIRDPARTY "thirdparty")
@@ -36,6 +40,8 @@ add_subdirectory(lib/utility)
 add_subdirectory(lib/core)
 add_subdirectory(app)
 add_subdirectory(tests)
-add_subdirectory(thirdparty/spdlog)
-# This project is tested using GoogleTest.
-add_subdirectory("thirdparty/googletest")
+find_package(spdlog CONFIG REQUIRED)
+find_package(oatpp  REQUIRED)
+message(${oatpp_INCLUDE_DIRS})
+find_package(oatpp-sqlite REQUIRED)
+add_subdirectory(http_app)
