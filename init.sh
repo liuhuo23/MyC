@@ -3,7 +3,7 @@ home_dir=$(dirname "$(realpath "$0")")
 echo "当前脚本路径：${home_dir}"
 git submodule init
 git submodule update
-
+cpus=$(nproc)
 # 定义数组来存储子模块路径
 export submodule_paths=()
 # 定义 .gitmodules 文件的路径
@@ -59,10 +59,10 @@ setup_oatpp() {
     cd ./build
 
     # 运行 CMake 配置
-    cmake .. -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_INSTALL_PREFIX="$local_path"
+    cmake .. -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_INSTALL_PREFIX="$local_path" -DOATPP_SQLITE_AMALGAMATION=ON
 
     # 构建项目
-    cmake --build .
+    cmake --build . -j $cpus
 
     # 安装项目，如果需要 sudo 权限
     make install

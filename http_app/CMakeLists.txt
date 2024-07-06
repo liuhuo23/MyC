@@ -7,7 +7,7 @@ include_directories(
     ${OpenMP_CXX_INCLUDE} 
     ${oatpp_INCLUDE_DIRS}
     ${oatpp_swagger_INCLUDE_DIRS}
-    ${oatpp-sqlite_INCLUDE_DIRS}
+    ${oatpp_sqlite_INCLUDE_DIRS}
 )
 add_library(
     http_lib
@@ -17,7 +17,12 @@ add_library(
     src/dto/StatusDto.hpp
     src/ErrorHandler.cc
     src/ErrorHandler.hpp
+    src/controller/StaticController.hpp
+    src/service/UserService.cpp
+    src/service/UserService.hpp
+    src/controller/UserController.hpp
 )
+option(DOATPP_SQLITE_AMALGAMATION ON)
 target_include_directories(http_lib PUBLIC src)
 find_package(SQLite3 REQUIRED)
 

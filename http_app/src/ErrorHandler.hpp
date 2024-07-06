@@ -11,7 +11,7 @@ private:
     typedef oatpp::web::protocol::http::outgoing::ResponseFactory ResponseFactory;
 
 private:
-    std::shared_ptr<oatpp::web::mime::ContentMappers> m_appers;
+    std::shared_ptr<oatpp::web::mime::ContentMappers> m_mappers;
 
 public:
     ErrorHandler(const std::shared_ptr<oatpp::web::mime::ContentMappers>& mappers);
